@@ -36,7 +36,7 @@
    dels mètodes al `.cc`.
 
 1. Estudieu ara el mòdul `Rectangle`, que es dóna mig implementat: La seva interfície
-   a `Ractangle.hh` és sencera però la seva implementació a `Rectangle.cc` és incompleta.
+   a `Rectangle.hh` és sencera però la seva implementació a `Rectangle.cc` és incompleta.
    Completeu-la.
 
 1. Estudieu el programa principal `main.cc`. La part del tractament de rectangles és
