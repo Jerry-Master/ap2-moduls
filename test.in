@@ -31,3 +31,4 @@ rect_flip_hor r
 rect_flip_ver t
 point_def A 4 3
 rect_contains_point r A
+rect_contains_point r O
