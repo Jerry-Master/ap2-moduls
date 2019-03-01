@@ -11,7 +11,7 @@ check: main.exe
 
 # Rule to clean object and executable files (make clean).
 clean:
-	rm -f main.exe *.o
+	rm -f main.exe *.o program.out
 
 # Rule to link the executable from then object files.
 #
