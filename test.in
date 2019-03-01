@@ -1,0 +1,33 @@
+point_def p 3 4
+point_copy q p
+point_get_x q
+point_get_y q
+point_add q p
+point_get_x q
+point_get_y q
+
+rect_def r p 5 10
+rect_copy r t
+point_def O 0 0
+rect_move_to r O
+rect_width r
+rect_height t
+rect_area r
+rect_scale r 2
+rect_contains_rect r t
+rect_eq r t
+rect_ne r t
+rect_intersec r t
+rect_width r
+rect_height r
+rect_get_LL r
+rect_width t
+rect_height t
+rect_get_LL t
+rect_eq r t
+rect_get_LL r
+rect_get_UR t
+rect_flip_hor r
+rect_flip_ver t
+point_def A 4 3
+rect_contains_point r A

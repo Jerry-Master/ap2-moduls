@@ -5,6 +5,10 @@ CXXFLAGS = -Wall -std=c++11 -O2
 # Because it is the first rule, it is also the default rule (make).
 all: main.exe
 
+check: main.exe
+	./main.exe < test.in > program.out
+	diff program.out test.out
+
 # Rule to clean object and executable files (make clean).
 clean:
 	rm -f main.exe *.o

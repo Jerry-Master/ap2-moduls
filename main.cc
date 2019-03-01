@@ -87,87 +87,123 @@ void point_add (map<string, Point>& points) {
 
 
 void rect_def (map<string, Point>& points, map<string, Rectangle>& rects) {
-    // Implement me !!!
+    string name, point;
+    int width, height;
+    cin >> name >> point >> width >> height;
+    rects[name] = Rectangle(width, height, points[point]);
 }
 
 
 void rect_copy (map<string, Point>& points, map<string, Rectangle>& rects) {
-    // Implement me !!!
+    string R1, R2;
+    cin >> R1 >> R2;
+    rects[R2] = rects[R1]; // Same sintax as cp $1 $2, copy the first into the second
 }
 
 
 void rect_get_LL (map<string, Point>& points, map<string, Rectangle>& rects) {
-    // Implement me !!!
+    string name;
+    cin >> name;
+    cout << '(' << rects[name].get_LL().get_x() << ',' << rects[name].get_LL().get_y() << ')' << endl;
 }
 
 
 void rect_get_UR (map<string, Point>& points, map<string, Rectangle>& rects) {
-    // Implement me !!!
+    string name;
+    cin >> name;
+    cout << '(' << rects[name].get_UR().get_x() << ',' << rects[name].get_UR().get_y() << ')' << endl;
 }
 
 
 void rect_width (map<string, Point>& points, map<string, Rectangle>& rects) {
-    // Implement me !!!
+    string name;
+    cin >> name;
+    cout << rects[name].width() << endl;
 }
 
 
 void rect_height (map<string, Point>& points, map<string, Rectangle>& rects) {
-    // Implement me !!!
+    string name;
+    cin >> name;
+    cout << rects[name].height() << endl;
 }
 
 
 void rect_area (map<string, Point>& points, map<string, Rectangle>& rects) {
-    // Implement me !!!
+    string name;
+    cin >> name;
+    cout << rects[name].area() << endl;
 }
 
 
 void rect_scale (map<string, Point>& points, map<string, Rectangle>& rects) {
-    // Implement me !!!
+    string name;
+    double factor;
+    cin >> name >> factor;
+    rects[name].scale(factor);
 }
 
 
 void rect_move_to (map<string, Point>& points, map<string, Rectangle>& rects) {
-    // Implement me !!!
+    string nameRect, namePoint;
+    cin >> nameRect >> namePoint;
+    rects[nameRect].move_to(points[namePoint]);
 }
 
 
 void rect_eq (map<string, Point>& points, map<string, Rectangle>& rects) {
-    // Implement me !!!
+    string R1, R2;
+    cin >> R1 >> R2;
+    cout << (rects[R1] == rects[R2]) << endl;
 }
 
 
 void rect_ne (map<string, Point>& points, map<string, Rectangle>& rects) {
-    // Implement me !!!
+    string R1, R2;
+    cin >> R1 >> R2;
+    cout << (rects[R1] != rects[R2]) << endl;
 }
 
 
 void rect_intersec (map<string, Point>& points, map<string, Rectangle>& rects) {
-    // Implement me !!!
+    string R1, R2;
+    cin >> R1 >> R2;
+    rects[R1] *= rects[R2];
 }
 
 
 void rect_rotate (map<string, Point>& points, map<string, Rectangle>& rects) {
-    // Implement me !!!
+    string name, sense;
+    cin >> name >> sense;
+    rects[name].rotate(sense != "counterclockwise");
 }
 
 
 void rect_flip_hor (map<string, Point>& points, map<string, Rectangle>& rects) {
-    // Implement me !!!
+    string name;
+    cin >> name;
+    rects[name].flip_hor();
 }
 
 
 void rect_flip_ver (map<string, Point>& points, map<string, Rectangle>& rects) {
-    // Implement me !!!
+    string name;
+    cin >> name;
+    rects[name].flip_ver();
 }
 
 
 void rect_contains_point (map<string, Point>& points, map<string, Rectangle>& rects) {
-    // Implement me !!!
+    string nameRect, namePoint;
+    cin >> nameRect >> namePoint;
+    cout << rects[nameRect].contains(points[namePoint]) << endl;
 }
 
 
 void rect_contains_rect (map<string, Point>& points, map<string, Rectangle>& rects) {
-    // Implement me !!!
+    string R1, R2;
+    cin >> R1 >> R2;
+    cout << rects[R1].contains(rects[R2]) << endl;
 }
 
 

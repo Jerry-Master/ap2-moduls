@@ -1,8 +1,13 @@
 #include "Rectangle.hh"
 
+#include <algorithm>
 #include <cassert>
+#include <cmath>
 using namespace std;
 
+#ifndef UNCERTAINTY
+#define UNCERTAINTY 0.0001
+#endif
 
 /** Constructor. */
 Rectangle::Rectangle (double w, double h, const Point& p)
@@ -56,27 +61,30 @@ void Rectangle::scale (double s) {
 }
 
 /** Moves the LL of this rectangle to some point p. */
-void move_to (const Point& p) {
-	this->p += p;
+void Rectangle::move_to (const Point& p) {
+	this->p = p;
 }
 
 /** Compares this rectangle to rectangle r. */
 bool Rectangle::operator== (const Rectangle& r) const {
-	return (w == r.getWidth()) and (h == r.getWidth()) and (p == r.getLL());
+	return (abs(w - r.width()) < UNCERTAINTY) and (abs(h - r.height()) < UNCERTAINTY) 
+			and (p == r.get_LL());
 }
 
 /** Compares this rectangle to rectangle r. */
 bool Rectangle::operator!= (const Rectangle& r) const {
-	return not r == *this;
+	return not (r == *this);
 }
 
-/** Intersects this rectangle with another rectangle. */
+/** Intersects this rectangle with another rectangle. 
+	If they don't intersect, returns Rectangle(Point(0,0),0,0)*/
 Rectangle& Rectangle::operator*= (const Rectangle& r) {
-	double x_min = max(getLL().get_x(), r.getLL().get_x());
-	double x_max = min(getUR().get_x(), r.getUR().get_x());
-	
-	double y_min = max(getLL().get_y(), r.getLL().get_y());
-	double y_max = min(getUR().get_y(), r.getUR().get_y());
+	/** Compute the x coord of the new LL and UR */
+	double x_min = max(get_LL().get_x(), r.get_LL().get_x());
+	double x_max = min(get_UR().get_x(), r.get_UR().get_x());
+	/** Compute the y coord of the new LL and UR */
+	double y_min = max(get_LL().get_y(), r.get_LL().get_y());
+	double y_max = min(get_UR().get_y(), r.get_UR().get_y());
 	
 	double width = x_max - x_min;
 	double height = y_max - y_min;
@@ -85,9 +93,11 @@ Rectangle& Rectangle::operator*= (const Rectangle& r) {
 		w = 0;
 		h = 0;
 	}else{
-		
+		p = Point(x_min, y_min);
+		w = width;
+		h = height;	
 	}
-		
+	return *this;
 }
 
 /** Returns the intersection of this rectangle with another rectangle. */
@@ -98,7 +108,7 @@ Rectangle Rectangle::operator* (const Rectangle& r) const {
 }
 
 /** Rotates this rectangle 90 degrees clockwise or counterclockwise around its LL point. */
-void Rectangle::rotate (bool clockwise=true) {
+void Rectangle::rotate (bool clockwise) {
 	if (clockwise) {
 		p += Point(0,-w);
 		swap(w,h);
@@ -110,12 +120,12 @@ void Rectangle::rotate (bool clockwise=true) {
 
 /** Horizontally flips this rectangle around its LL point.*/
 void Rectangle::flip_hor () {
-	p += Point(-w,0);
+	p += Point(0,-h);
 }
 
 /** Vertically flips this rectangle around its LL point.*/
 void Rectangle::flip_ver () {
-	p += Point(0,-h);
+	p += Point(-w,0);
 }
 
 /** Check whether point p is contained in this rectangle. */
@@ -128,6 +138,6 @@ bool Rectangle::contains (const Point& p) const {
 
 /** Check whether rectangle r is fully contained in this rectangle. */
 bool Rectangle::contains (const Rectangle& r) const {
-	return contains(r.getLL()) and contains(r.getUR());
+	return contains(r.get_LL()) and contains(r.get_UR());
 }
 

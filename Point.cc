@@ -3,7 +3,9 @@
 #include <cmath>
 using namespace std;
 
-
+#ifndef UNCERTAINTY
+#define UNCERTAINTY 0.0001
+#endif
 
 /* Returns the square of a number. It is marked static to be private in this module. */
 static double sqr (double x) {
@@ -52,7 +54,7 @@ double Point::angle () const {
 
 /** Compares this point to point p. */
 bool Point::operator== (const Point& p) const {
-    return x == p.x and y == p.y;
+    return (abs(x - p.x) < UNCERTAINTY) and (abs(y - p.y) < UNCERTAINTY);
 }
 
 

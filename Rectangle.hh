@@ -53,10 +53,12 @@ public:
     /** Compares this rectangle to rectangle r. */
     bool operator!= (const Rectangle& r) const;
 
-    /** Intersects this rectangle with another rectangle. */
+    /** Intersects this rectangle with another rectangle. 
+        If they don't intersect, returns Rectangle(Point(0,0),0,0)*/
     Rectangle& operator*= (const Rectangle& r);
 
-    /** Returns the intersection of this rectangle with another rectangle. */
+    /** Returns the intersection of this rectangle with another rectangle.
+        If they don't intersect, returns Rectangle(Point(0,0),0,0)*/
     Rectangle operator* (const Rectangle& r) const;
 
     /** Rotates this rectangle 90 degrees clockwise or counterclockwise around its LL point. */
