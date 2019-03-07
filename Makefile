@@ -1,11 +1,13 @@
 # Defines the flags for compiling with C++.
-CXXFLAGS = -Wall -std=c++11 -O2
-INCLUDE = -DNO_FREETYPE -I $(HOME)/libs/include  
+CXXFLAGS = -Wall -std=c++11 -O2 -DNO_FREETYPE -I $(HOME)/libs/include
 LIBS =  -L $(HOME)/libs/lib -l PNGwriter -l png
 
 # Rule to compile everything (make all).
 # Because it is the first rule, it is also the default rule (make).
 all: main.exe image.x
+
+auxClean: 
+	rm -rf image.x
 
 check: main.exe
 	./main.exe < test.in > program.out
@@ -27,15 +29,16 @@ cleanPNG:
 main.exe: main.o Point.o Rectangle.o Circle.o
 	$(CXX) $^ -o $@
 
-image.x: image.cc
-	$(CXX) $(CXXFLAGS) $(INCLUDE) $^ $(LIBS) -o $@ 
+image.x: image.o
+	$(CXX) $(CXXFLAGS) $^ $(LIBS) -o $@ 
 	./image.x
-	display image.png &
-	
-image.cc: image.cc
+	open image.png &
+
 
 ## Dependencies between files
 # (we don't need to precise how to produce them, Makefile already knows)
+
+image.o: image.cc
 
 main.o: main.cc Point.hh Rectangle.hh Circle.hh
 
