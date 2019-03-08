@@ -10,8 +10,38 @@ using Point = pair<int, int>;
 using Line = vector<Point>;
 using Grid = vector<Line>;
 
-int width = 4000;
-int height = 4000;
+int width = 2*3141;
+int height = 2*3141;
+// Function to apply
+void func(Point& p){
+	double x = p.first;
+	double y = p.second;
+	// Move the center
+	x -= width/2;
+	y -= height/2;
+
+	// Reescale
+	int factor = 1000;
+	x /= factor;
+	y /= factor;
+
+	/*complex<int> z(x,y);
+	z = z*z;
+
+	int scale = 1000;
+	p.first = z.real()/scale + width/2;
+	p.second = z.imag()/scale + height/2;*/
+
+	/*int a = 1;
+	int c = 1;
+
+	int b = 1;
+	int d = -1;*/
+
+	double scale = 1;
+	p.first = ((x*sin(y))*scale)*factor + (width/2);
+	p.second = ((y*cos(x))*scale)*factor + (height/2);
+}
 
 // Plots a set of points in some colour
 void plot(pngwriter& png, const Line& v, const vector<double>& colores = {1.0,0.0,0.0}){
@@ -84,21 +114,6 @@ Grid grid(int dist){
 	}
 	return g;
 }
-// It represents f(z) = z^2 in the complex plane
-void func(Point& p){
-	int x = p.first;
-	int y = p.second;
-	// Move the center
-	x -= width/2;
-	y -= height/2;
-
-	complex<int> z(x,y);
-	z = z*z;
-
-	int scale = 500;
-	p.first = z.real()/scale + width/2;
-	p.second = z.imag()/scale + height/2;
-}
 // Computes the euclidean norm
 double norm(Point P, Point Q){
 	int x = P.first - Q.first;
@@ -134,17 +149,17 @@ void fill(Line& l){
 	concatenate(l, added);
 }
 // Applies a function to every point in the grid
-void apply(Grid& g){
+void apply(Grid& g, bool Fill){
 	for (Line& l : g) {
 		for (Point& p : l) func(p);
-		fill(l);
+		if (Fill) fill(l);
 	}
 }
 
 int main() {
     pngwriter image(width, height, 1.0, "image.png");
-	Grid g = grid(50);
-	apply(g);
+	Grid g = grid(100);
+	apply(g, true);
 	image.invert();
 	plot(image, g, {0.6,0.5,0.9});
 	image.close();
